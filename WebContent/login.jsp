@@ -27,7 +27,7 @@
 	<hr>
 
 	<div class="contariner">
-		<form action="Action.jsp" class="login_form">
+		<form action="Login_Action.jsp" class="login_form">
 			<div class="login_a1">
 				<h1>Login</h1>
 				<div class="login_a2">

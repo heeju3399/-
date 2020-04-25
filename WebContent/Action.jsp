@@ -12,8 +12,6 @@
 	String msg = null;
 	String url = null;
 	
-	
-	
 	if(!sign_ok){
 		msg ="È¯¿µ";
 		url = "main.jsp";

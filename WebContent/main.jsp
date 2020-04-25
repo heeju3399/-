@@ -14,7 +14,7 @@
 			<a href="main.jsp">메인페이지</a> 
 		</div>
 		<div class="a2">
-			<a href="main.jsp">게시판</a>
+			<a href="border.jsp">게시판</a>
 		</div>
 		<div class="a2">
 			<a href="signin.jsp">회원가입</a>
@@ -26,7 +26,7 @@
 <hr><br>
 
 	 <div>
-        <div> <img src="https://c.wallhere.com/photos/f0/52/big_cats_animals_lion-1262589.jpg!d"></div>
+        <div> <img src="https://c.wallhere.com/photos/f0/52/big_cats_animals_lion-1262589.jpg!d" width="100%" height="100%"></div>
     </div>
 	
 </body>

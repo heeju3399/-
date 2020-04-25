@@ -19,26 +19,33 @@ public class Con2 {
 		pool = DBConnectionMgr.getInstance();
 	}
 
-	public boolean login(user uu) {
+	public int login(user uu) {
 
 		try {
 			conn = pool.getConnection();
-			sql = " select * from user where userid = ? and userpassword = ?  ";
+			sql = " select userPassword from user where userid = ? ";
 			pre = conn.prepareStatement(sql);
 			pre.setString(1, uu.getUserId());
-			pre.setString(2, uu.getUserPass());
 			rs = pre.executeQuery();
-			if (rs.next())
-				flag = true;
-
+			if (rs.next()) {
+				if(rs.getString(1).equals(uu.getUserPass())) {
+					return 1; // 로그인 성공
+				}else {
+					return 0; //로그인 실패 비번다름
+				}	
+			}
+			return -1; //아이디가 없음 
 		} catch (Exception e) {
 			System.out.println("login err:" + e);
+			return -2;
 		} finally {
+			System.out.println("=====");
 			pool.freeConnection(conn, pre);
+			System.out.println("접속종료");
 		}
-		return flag;
+		
 	}
-
+	
 	public boolean signin(user uu) {
 
 		try {
