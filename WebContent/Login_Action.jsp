@@ -16,6 +16,7 @@ if (result == 1) {
 	script.println("alert('ok')");
 	script.println("location.href = 'main.jsp' ");
 	script.println("</script>");
+	session.setAttribute("idKey", use.getUserId());
 	
 } else if(result == 0 ) {
 	PrintWriter script = response.getWriter();

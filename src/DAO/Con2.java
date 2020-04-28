@@ -3,7 +3,9 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Vector;
 
+import bean.notice_Board;
 import bean.user;
 
 public class Con2 {
@@ -28,13 +30,13 @@ public class Con2 {
 			pre.setString(1, uu.getUserId());
 			rs = pre.executeQuery();
 			if (rs.next()) {
-				if(rs.getString(1).equals(uu.getUserPass())) {
+				if (rs.getString(1).equals(uu.getUserPass())) {
 					return 1; // 로그인 성공
-				}else {
-					return 0; //로그인 실패 비번다름
-				}	
+				} else {
+					return 0; // 로그인 실패 비번다름
+				}
 			}
-			return -1; //아이디가 없음 
+			return -1; // 아이디가 없음
 		} catch (Exception e) {
 			System.out.println("login err:" + e);
 			return -2;
@@ -43,9 +45,9 @@ public class Con2 {
 			pool.freeConnection(conn, pre);
 			System.out.println("접속종료");
 		}
-		
+
 	}
-	
+
 	public boolean signin(user uu) {
 
 		try {
@@ -72,4 +74,51 @@ public class Con2 {
 
 	}
 
+	public Vector<notice_Board> border_List(int num) {
+		Vector<notice_Board> vlist = new Vector<notice_Board>();
+
+		try {
+			conn = pool.getConnection();
+			sql = "select * from userborder where num = ? ";
+			pre = conn.prepareStatement(sql);
+			pre.setInt(1, num);
+			rs = pre.executeQuery();
+			while (rs.next()) {
+				notice_Board bb = new notice_Board();
+				bb.setNbId(rs.getInt(1));
+				bb.setUserId(rs.getString(2));
+				bb.setNbTitle(rs.getString(3));
+				bb.setNbContent(rs.getString(4));
+				bb.setNbDate(rs.getString(5));
+				bb.setNbAvailable(rs.getInt(6));
+
+				vlist.addElement(bb);
+			}
+
+		} catch (Exception e) {
+			System.out.println("list_err:" + e);
+		} finally {
+			pool.freeConnection(conn, pre, rs);
+		}
+
+		return vlist;
+	}
+
+	public int insert() {
+
+		
+		
+		return 1;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+

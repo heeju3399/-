@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+   <%
+   		String id = (String)session.getAttribute("idKey");
+   		out.print(session.getAttribute("idKey"));
+   		out.print(id);
+   %>
+    
 <!DOCTYPE html>
 <html>
 <head>
