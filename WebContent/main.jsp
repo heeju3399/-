@@ -5,7 +5,7 @@
    		out.print(session.getAttribute("idKey"));
    		out.print(id);
    %>
-    
+     
 <!DOCTYPE html>
 <html>
 <head>
