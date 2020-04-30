@@ -74,18 +74,18 @@ public class Con2 {
 
 	}
 
-	public Vector<notice_Board> border_List(int num) {
+	public Vector<notice_Board> border_List() {
 		Vector<notice_Board> vlist = new Vector<notice_Board>();
 
 		try {
 			conn = pool.getConnection();
-			sql = "select * from userborder where num = ? ";
+			sql = "select * from userborder";
 			pre = conn.prepareStatement(sql);
-			pre.setInt(1, num);
+			
 			rs = pre.executeQuery();
 			while (rs.next()) {
 				notice_Board bb = new notice_Board();
-				bb.setNbId(rs.getInt(1));
+				bb.setNum(rs.getInt(1));
 				bb.setUserId(rs.getString(2));
 				bb.setNbTitle(rs.getString(3));
 				bb.setNbContent(rs.getString(4));
@@ -104,21 +104,22 @@ public class Con2 {
 		return vlist;
 	}
 
-	public int insert() {
-
-		
-		
-		return 1;
+	public void boder_insert(notice_Board bb) {
+		try {
+			conn = pool.getConnection();
+			sql =  " insert INTO userborder (userid, title, content, "; 
+			sql += " DATE, avaliable ) "; 
+			sql += " VALUES (?,?,?,DATE_FORMAT(NOW(),'%Y-%m-%d'),?) ";
+			pre = conn.prepareStatement(sql);
+			pre.setString(1, bb.getUserId());
+			pre.setString(2, bb.getNbTitle());
+			pre.setString(3, bb.getNbContent());
+			pre.setInt(4, bb.getNbAvailable());
+			pre.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("bbinsert_err:" + e);
+		} finally {
+			pool.freeConnection(conn, pre);
+		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-

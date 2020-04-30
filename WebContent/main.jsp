@@ -3,7 +3,7 @@
    <%
    		String id = (String)session.getAttribute("idKey");
    		out.print(session.getAttribute("idKey"));
-   		out.print(id);
+   		//out.print(id);
    %>
      
 <!DOCTYPE html>
@@ -21,13 +21,14 @@
 		</div>
 		<div class="a2">
 			<a href="border.jsp">게시판</a>
-		</div>
-		<div class="a2">
-			<a href="signin.jsp">회원가입</a>
-		</div>
-		<div class="a2">
-			<a href="login.jsp">로그인</a>
-		</div>
+		</div> 
+		<%if(id == null){ %>
+		<div class="a2"><a href="signin.jsp">회원가입</a></div>
+		<div class="a2"><a href="login.jsp">로그인</a></div>
+		<%}else{ %>
+		<div class="a2"><a href="">회원관리</a></div>
+		<div class="a2"><a href="logout.jsp">로그아웃</a></div>
+		<%} %>
 	</div>
 <hr><br>
 

@@ -2,13 +2,24 @@ package bean;
 
 public class notice_Board {
 	
+	private int num;
 	private int nbId;
 	private String userId;
 	private String nbTitle;
 	private String nbContent;
 	private String nbDate;
-	private int nbAvailable;
+	private int nbAvailable; 
 	
+	
+	
+	
+	
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
 	public int getNbId() {
 		return nbId;
 	}

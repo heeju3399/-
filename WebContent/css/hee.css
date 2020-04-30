@@ -70,7 +70,12 @@ th{
 }
 td{
 	border: solid 1px;
-}
+} 
 
 /*table*//*table*//*table*//*table*//*table*//*table*//*table*//*table*/
 /*table*//*table*//*table*//*table*//*table*//*table*//*table*//*table*/
+.placeholder {
+	width : 100%;
+	margin : 10px;
+	font-size: 50px;
+}

@@ -1,3 +1,5 @@
+<%@page import="java.io.PrintWriter"%>
+<%@page import="com.sun.xml.internal.bind.v2.runtime.Location"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
    
@@ -14,6 +16,13 @@
 	
 <%
 	String id = (String)session.getAttribute("idKey");
+	if(id == null){
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('로그인이 필요합니다.')");
+		script.println("location.href = 'login.jsp' ");
+		script.println("</script>");
+	}
 %>	
 	
 	<div class="a1">
@@ -33,26 +42,23 @@
 	<hr>
 	
 	<div class="contariner">
-		<form action="write_Action.jsp" class="login_form">
+		<form action="write_Action.jsp" class="login_form" method="post">
 			<div class="login_a1">
-				<h1>방명록</h1>
+				<h1>게시판 글쓰기</h1>
+				<div class="login_a2">
+					
+				</div>
+
 				<div class="login_a2">
 					<div class="login_idtxt">
-						<input type="text" name="" id="" value="<%=id%>님의글" readonly="readonly"
-							style="font-size: 28px;">
+						<input class="placeholder" type="text" name="nbTitle" id="" value="" 
+							style="font-size: 28px;" placeholder="타이틀"> 
 					</div>
 				</div>
 
 				<div class="login_a2">
 					<div class="login_idtxt">
-						<input type="text" name="nbTitle" id="" value="" 
-							style="font-size: 28px;" placeholder="타이틀">
-					</div>
-				</div>
-
-				<div class="login_a2">
-					<div class="login_idtxt">
-						<textarea name="nbContent" rows="5" cols="auto" style="font-size: 28px"></textarea>
+						<textarea class="placeholder" name="nbContent" rows="5" cols="auto" style="font-size: 28px" placeholder="내용"></textarea>
 					</div>
 				</div> 
 
@@ -62,7 +68,7 @@
 				</div> 
 
 			</div>
-
+			<input type="hidden" name="nbAvailable" value="1">			
 		</form>
 	</div>
 	
