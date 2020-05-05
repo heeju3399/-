@@ -79,7 +79,7 @@ public class Con2 {
 
 		try {
 			conn = pool.getConnection();
-			sql = "select * from userborder";
+			sql = "select * from userborder where avaliable=1 ORDER BY num desc";
 			pre = conn.prepareStatement(sql);
 			
 			rs = pre.executeQuery();
@@ -109,12 +109,12 @@ public class Con2 {
 			conn = pool.getConnection();
 			sql =  " insert INTO userborder (userid, title, content, "; 
 			sql += " DATE, avaliable ) "; 
-			sql += " VALUES (?,?,?,DATE_FORMAT(NOW(),'%Y-%m-%d'),?) ";
+			sql += " VALUES (?,?,?,DATE_FORMAT(NOW(),'%Y-%m-%d'),1) ";
 			pre = conn.prepareStatement(sql);
 			pre.setString(1, bb.getUserId());
 			pre.setString(2, bb.getNbTitle());
 			pre.setString(3, bb.getNbContent());
-			pre.setInt(4, bb.getNbAvailable());
+		
 			pre.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("bbinsert_err:" + e);
@@ -122,4 +122,70 @@ public class Con2 {
 			pool.freeConnection(conn, pre);
 		}
 	}
+	public Vector<notice_Board> read_list(int num) {
+		Vector<notice_Board> vlist = new Vector<notice_Board>();
+
+		try {
+			conn = pool.getConnection();
+			sql = "select * from userborder where avaliable=1 and num = ? ";
+					
+			pre = conn.prepareStatement(sql);
+			pre.setInt(1, num);
+			rs = pre.executeQuery();
+			if (rs.next()) {
+				notice_Board bb = new notice_Board();
+				bb.setNum(rs.getInt(1));
+				bb.setUserId(rs.getString(2));
+				bb.setNbTitle(rs.getString(3));
+				bb.setNbContent(rs.getString(4));
+				bb.setNbDate(rs.getString(5));
+				bb.setNbAvailable(rs.getInt(6));				
+
+				vlist.addElement(bb);
+			}
+
+		} catch (Exception e) {
+			System.out.println("read_list_err:" + e);
+		} finally {
+			pool.freeConnection(conn, pre, rs);
+		}
+		return vlist;
+	}
+	public void delete(int num) {
+		try {
+			conn = pool.getConnection();
+			sql = "update hoho.userborder set avaliable=0 where num = ? ";
+			pre = conn.prepareStatement(sql);
+			pre.setInt(1, num);
+			pre.executeUpdate();
+			flag = true;
+
+		} catch (Exception e) {
+			System.out.println("delete_err" + e);
+		} finally {
+			pool.freeConnection(conn, pre);
+		}
+		
+	}
+	public void update(notice_Board nb) {
+		try {
+			conn = pool.getConnection();
+			sql =  " update hoho.userborder " ;
+			sql += " set title=?, content=? , " ;
+			sql += " DATE=DATE_FORMAT(NOW(),'%Y-%m-%d') ";			
+			sql += " where num = ? ";
+			pre = conn.prepareStatement(sql);
+			pre.setString(1, nb.getNbTitle());
+			pre.setString(2, nb.getNbContent());
+			pre.setInt(3, nb.getNum());
+			pre.executeUpdate();
+		} catch (Exception e) {
+			System.out.println("update_err" + e);
+		} finally {
+			pool.freeConnection(conn, pre);
+		}
+	}
+//	public int count(int num) {
+//		
+//	}
 }

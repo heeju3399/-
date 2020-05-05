@@ -2,7 +2,7 @@
 <%@page import="com.sun.xml.internal.bind.v2.runtime.Location"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-   
+ <% request.setCharacterEncoding("EUC-KR"); %>
  
     
 <!DOCTYPE html>
@@ -68,6 +68,7 @@
 				</div> 
 
 			</div>
+			
 			<input type="hidden" name="nbAvailable" value="1">			
 		</form>
 	</div>

@@ -7,6 +7,7 @@
 <jsp:useBean id="note" class="bean.notice_Board" />
 <jsp:useBean id="con" class="DAO.Con2" />
 <%
+	request.setCharacterEncoding("EUC-KR");
 	String id = (String) session.getAttribute("idKey");
 	out.print(session.getAttribute("idKey"));
 
@@ -15,10 +16,15 @@
 	//notice_Board nb = new notice_Board();
 	
 //out.print(vlist.size());
+
 %>
 <script>
-	
-</script>
+var count = 0;
+function cc(){
+ var aa = count ++; 
+ document.write(aa);
+}
+</script> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,38 +70,38 @@
 		<form action="write.jsp">
 			<input type="submit" value="글쓰기" style="font-size: 50px;">
 		</form>
-
+	
 	</div>
+	<form>
 	<table
-		style="font-size: 80px; border: solid 2px; width: 60%; margin: auto; margin-top: 1%; text-align: center;">
+		style="font-size: 40px; border: solid 2px; width: 80%; margin: auto; margin-top: 1%; text-align: center;">
 		<th style="border: solid 1px;">번호</th>
-		<th style="border: solid 1px;">ID</th>
+		<th style="border: solid 1px;">ID</th> 
 		<th style="border: solid 1px;">제목</th>
-		<th style="border: solid 1px;">내용</th>
+		<th style="border: solid 1px;"><a href="" style="font-size: 40px;">내용</a></th>
 		<th style="border: solid 1px;">날짜</th>
 		<th style="border: solid 1px;">조회</th>
-		
 		<%
-			for(int i = 0; i<vlist.size(); i++){
-				notice_Board bb = vlist.get(i);
-				//out.print(bb); 
+			for(int i = 0; i<vlist.size(); i++){ 
+				notice_Board bb = vlist.get(i); 
+			
 		%>
-
-		<tr>
-			<td style="border: solid 1px;"><%=bb.getNum() %></td>
-			<td style="border: solid 1px;"><a href=""><%=bb.getUserId()%></a></td>
-			<td style="border: solid 1px;"><%=bb.getNbTitle()%></td>
-			<td style="border: solid 1px;"><%=bb.getNbContent()%></td>
+		<tr style="font-size: 30px;" >
+			<td style="border: solid 1px;"><%= bb.getNum() %></td> 
+			<td style="border: solid 1px;"><%=bb.getUserId().replace(" ", "&nbsp;").replaceAll
+									("<", "lt;").replace(">", "&gt;").replace("\n", "<br>")%></td>
+			<td style="border: solid 1px;"><%=bb.getNbTitle().replace(" ", "&nbsp;").replaceAll
+									("<", "lt;").replace(">", "&gt;").replace("\n", "<br>")%></td>
+			<td style="border: solid 1px;"> 
+			<a href = "read.jsp?Ks34S=<%=bb.getNum()%>" id="s1" onclick="cc()"><%=bb.getNbContent().replace(" ", "&nbsp;").replaceAll
+									("<", "lt;").replace(">", "&gt;").replace("\n", "<br>")%></a> 
+			</td>
 			<td style="border: solid 1px;"><%=bb.getNbDate() %></td>
-			<td style="border: solid 1px;">조회</td>
+				<td style="border: solid 1px;"></td>
 
-		</tr>
+			</tr>
 	<%} %>
 	</table>
-
-
-
-
-
+	</form>
 </body>
 </html>
