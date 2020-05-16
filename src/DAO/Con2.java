@@ -4,12 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
-
 import bean.notice_Board;
 import bean.user;
 
 public class Con2 {
-
 	private Connection conn = null;
 	private PreparedStatement pre = null;
 	private String sql = null;
@@ -20,9 +18,7 @@ public class Con2 {
 	public Con2() {
 		pool = DBConnectionMgr.getInstance();
 	}
-
 	public int login(user uu) {
-
 		try {
 			conn = pool.getConnection();
 			sql = " select userPassword from user where userid = ? ";
@@ -45,7 +41,6 @@ public class Con2 {
 			pool.freeConnection(conn, pre);
 			System.out.println("접속종료");
 		}
-
 	}
 
 	public boolean signin(user uu) {
@@ -71,7 +66,6 @@ public class Con2 {
 			pool.freeConnection(conn, pre);
 		}
 		return flag;
-
 	}
 
 	public Vector<notice_Board> border_List() {
@@ -79,7 +73,7 @@ public class Con2 {
 
 		try {
 			conn = pool.getConnection();
-			sql = "select * from userborder where avaliable=1 ORDER BY num desc";
+			sql = "select * from userborder where avaliable=1 ORDER BY num desc limit 0,10";
 			pre = conn.prepareStatement(sql);
 			
 			rs = pre.executeQuery();
@@ -94,16 +88,13 @@ public class Con2 {
 
 				vlist.addElement(bb);
 			}
-
 		} catch (Exception e) {
 			System.out.println("list_err:" + e);
 		} finally {
 			pool.freeConnection(conn, pre, rs);
 		}
-
 		return vlist;
 	}
-
 	public void boder_insert(notice_Board bb) {
 		try {
 			conn = pool.getConnection();
@@ -114,7 +105,6 @@ public class Con2 {
 			pre.setString(1, bb.getUserId());
 			pre.setString(2, bb.getNbTitle());
 			pre.setString(3, bb.getNbContent());
-		
 			pre.executeUpdate();
 		} catch (Exception e) {
 			System.out.println("bbinsert_err:" + e);
@@ -124,7 +114,6 @@ public class Con2 {
 	}
 	public Vector<notice_Board> read_list(int num) {
 		Vector<notice_Board> vlist = new Vector<notice_Board>();
-
 		try {
 			conn = pool.getConnection();
 			sql = "select * from userborder where avaliable=1 and num = ? ";
@@ -140,7 +129,6 @@ public class Con2 {
 				bb.setNbContent(rs.getString(4));
 				bb.setNbDate(rs.getString(5));
 				bb.setNbAvailable(rs.getInt(6));				
-
 				vlist.addElement(bb);
 			}
 

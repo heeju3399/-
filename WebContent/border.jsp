@@ -10,13 +10,9 @@
 	request.setCharacterEncoding("EUC-KR");
 	String id = (String) session.getAttribute("idKey");
 	out.print(session.getAttribute("idKey"));
-
-	
 	Vector<notice_Board> vlist = con.border_List();
 	//notice_Board nb = new notice_Board();
-	
-//out.print(vlist.size());
-
+	//out.print(vlist.size());
 %>
 <script>
 var count = 0;
@@ -78,7 +74,7 @@ function cc(){
 		<th style="border: solid 1px;">번호</th>
 		<th style="border: solid 1px;">ID</th> 
 		<th style="border: solid 1px;">제목</th>
-		<th style="border: solid 1px;"><a href="" style="font-size: 40px;">내용</a></th>
+		<th style="border: solid 1px;"><a style="font-size: 40px;">내용</a></th>
 		<th style="border: solid 1px;">날짜</th>
 		<th style="border: solid 1px;">조회</th>
 		<%
@@ -100,8 +96,11 @@ function cc(){
 				<td style="border: solid 1px;"></td>
 
 			</tr>
+			
 	<%} %>
+	
 	</table>
 	</form>
+	
 </body>
 </html>
